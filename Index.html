@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>دعوة اليوم الوطني</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#051a13;
+    --bg-mid:#0a2f22;
+    --panel:#0c3628;
+    --line: rgba(143,255,196,0.22);
+    --mint:#8fffc4;
+    --gold:#cda43c;
+    --gold-soft: rgba(205,164,60,0.35);
+    --ink:#f4f6f1;
+    --ink-dim: rgba(244,246,241,0.68);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html{ scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *{ box-sizing:border-box; }
+  html,body{
+    margin:0; height:100%;
+    font-family:'Tajawal', sans-serif;
+    background: var(--bg-deep);
+    color: var(--ink);
+  }
+  body{
+    min-height:100%;
+    display:flex; align-items:center; justify-content:center;
+    padding: 40px 16px;
+    position:relative;
+    overflow-x:hidden;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(143,255,196,0.05), transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(205,164,60,0.06), transparent 40%),
+      repeating-linear-gradient(0deg, rgba(143,255,196,0.035) 0px, rgba(143,255,196,0.035) 1px, transparent 1px, transparent 34px),
+      repeating-linear-gradient(90deg, rgba(143,255,196,0.035) 0px, rgba(143,255,196,0.035) 1px, transparent 1px, transparent 34px),
+      linear-gradient(160deg, var(--bg-deep) 0%, var(--bg-mid) 60%, var(--bg-deep) 100%);
+  }
+
+  .wrap{ width:100%; max-width: 460px; }
+  .hidden{ display:none; }
+
+  /* ---------- terminal-style window ---------- */
+  .window{
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)), var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.2), 0 20px 50px rgba(0,0,0,0.35);
+    overflow: hidden;
+  }
+  .titlebar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(0,0,0,0.15);
+  }
+  .dots{ display:flex; gap:6px; }
+  .dots span{ width:9px; height:9px; border-radius:50%; display:block; }
+  .dots span:nth-child(1){ background: var(--gold); }
+  .dots span:nth-child(2){ background: var(--ink); opacity:0.6; }
+  .dots span:nth-child(3){ background: var(--mint); }
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--mint);
+    direction: ltr;
+    opacity:0.85;
+  }
+
+  .content{ padding: 30px 26px 26px; text-align:center; }
+
+  .emblem{ width: 74px; margin-bottom: 14px; opacity:0.9; }
+
+  h1{
+    font-family:'Amiri', serif;
+    font-weight:700;
+    font-size: clamp(26px, 7vw, 34px);
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .subhead{
+    font-size: 15px;
+    color: var(--ink-dim);
+    margin: 0 0 20px;
+    line-height:1.9;
+  }
+  .subhead b{ color: var(--gold); font-weight:700; }
+
+  .divider{
+    font-family:'IBM Plex Mono', monospace;
+    direction: ltr;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--line);
+    margin: 4px 0 22px;
+    user-select:none;
+  }
+
+  .details{
+    text-align:right;
+    background: rgba(0,0,0,0.18);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 0 0 20px;
+    font-size: 14.5px;
+    line-height: 2.15;
+  }
+  .details b{ color: var(--gold); }
+  .details .row{ display:flex; gap:8px; }
+  .details .row .ic{ flex:none; }
+
+  .status-line{
+    font-family:'IBM Plex Mono', monospace;
+    direction: ltr;
+    font-size: 12px;
+    color: var(--mint);
+    opacity:0.85;
+    margin: 4px 0 20px;
+    min-height: 16px;
+  }
+
+  .btn-row{
+    position:relative;
+    display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+    min-height: 120px;
+  }
+  button{
+    font-family:'Tajawal', sans-serif;
+    font-weight:700;
+    font-size: 15px;
+    border-radius: 8px;
+    padding: 13px 24px;
+    cursor:pointer;
+    border: 1px solid transparent;
+    transition: transform .15s ease;
+  }
+  button:focus-visible{ outline: 2px solid var(--mint); outline-offset:2px; }
+
+  #accept{
+    background: linear-gradient(180deg, var(--gold), #a8842f);
+    color: #10230f;
+  }
+  #accept:hover{ transform: translateY(-2px); }
+
+  #reject{
+    background: transparent;
+    color: var(--ink-dim);
+    border-color: var(--line);
+    position: relative;
+    z-index: 3;
+  }
+  #reject.roaming{ position: fixed; transition: top .18s ease, left .18s ease; }
+
+  footer{
+    margin-top: 22px;
+    text-align:center;
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.8;
+  }
+  footer .name{ color: var(--gold); font-weight:700; }
+
+  @media (prefers-reduced-motion: reduce){
+    #reject.roaming{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ================= SCREEN 1: INVITATION ================= -->
+  <div id="invite-screen">
+    <div class="window">
+      <div class="titlebar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="tag">invite.sys // batch_224</div>
+      </div>
+      <div class="content">
+        <svg class="emblem" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g fill="none" stroke="#cda43c" stroke-width="4" stroke-linecap="round">
+            <path d="M40 150 L95 95"></path>
+            <path d="M160 150 L105 95"></path>
+            <path d="M30 155 L50 145"></path>
+            <path d="M170 155 L150 145"></path>
+            <circle cx="100" cy="80" r="9" fill="#cda43c" stroke="none"></circle>
+            <path d="M100 89 L100 150" stroke-width="6"></path>
+          </g>
+        </svg>
+
+        <h1>دعوة إلى احتفال اليوم الوطني</h1>
+        <p class="subhead">
+          يسعد طالبات <b>نظم المعلومات وتحليل الأعمال</b> — الدفعة الأروع،
+          دعوتكم للاحتفال باليوم الوطني السعودي.
+        </p>
+
+        <div class="divider">— 01001110 01000100 —</div>
+
+        <div class="details">
+          <div class="row"><span class="ic">👗</span><span><b>Dress code:</b> أخضر، أبيض</span></div>
+          <div class="row"><span class="ic">🇸🇦</span><span><b>مطلوب تجيبين:</b> علمك، صوتك للتصفيق، وقلبك المليان حماس</span></div>
+          <div class="row"><span class="ic">👑</span><span><b>الدعوة من:</b> ملكة التنظيم ريتاج العنزي – دفعة 224</span></div>
+          <div class="row"><span class="ic">⏰</span><span><b>الحضور:</b> إجباري، وبيتم سحب جنسية المتغيب — ١٢:٣٠ الاثنين، قاعتنا المعتادة</span></div>
+        </div>
+
+        <div class="status-line" id="status-line">STATUS: awaiting_response...</div>
+
+        <div class="btn-row" id="btn-row">
+          <button id="accept" type="button">تأكيد الحضور</button>
+          <button id="reject" type="button">اعتذار</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= SCREEN 2: CONFIRMATION ================= -->
+  <div id="confirm-screen" class="hidden">
+    <div class="window">
+      <div class="titlebar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="tag">invite.sys // confirmed</div>
+      </div>
+      <div class="content">
+        <h1>تم تأكيد حضورك</h1>
+        <p class="subhead">
+          سُجّل اسمك رسميًا في قائمة الحضور، وجنسيتك بأمان تام.
+          كرسيك محجوز في القاعة المعتادة.
+        </p>
+
+        <div class="divider">— 01010111 01000101 —</div>
+
+        <div class="details">
+          <div class="row"><span class="ic">🇸🇦</span><span><b>لا تنسين:</b> العلم، وإلا اعتُبرتِ ضيفة من دولة مجاورة</span></div>
+          <div class="row"><span class="ic">👏</span><span><b>مطلوب منك:</b> تصفيق بمستوى يليق بالمناسبة</span></div>
+          <div class="row"><span class="ic">📸</span><span><b>ملاحظة:</b> ستُلتقط صور تذكارية</span></div>
+          <div class="row"><span class="ic">🕧</span><span><b>الموعد:</b> ١٢:٣٠ الاثنين، قاعتنا المعتادة، بلا تأخير</span></div>
+        </div>
+
+        <div class="status-line">STATUS: confirmed ✓</div>
+
+        <p class="subhead" style="margin-top:4px;">نشرّفكِ في احتفالنا، ونعتذر مسبقًا إن كان الحماس أكثر من اللازم.</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+(function(){
+  // ---------- reject button dodges ----------
+  const rejectBtn = document.getElementById('reject');
+  const statusLine = document.getElementById('status-line');
+  const notes = [
+    'STATUS: recalculating_decision...',
+    'STATUS: 224/224 اعتذارات مرفوضة سابقًا',
+    'STATUS: النظام لا يدعم "لا"',
+    'STATUS: يُفضَّل إعادة التفكير',
+    'STATUS: جاري تجاهل الاعتذار...',
+    'STATUS: القرار النهائي بيدك... تقريبًا'
+  ];
+  let dodgeCount = 0;
+
+  function dodge(){
+    dodgeCount++;
+    const btnW = rejectBtn.offsetWidth || 120;
+    const btnH = rejectBtn.offsetHeight || 46;
+    const margin = 16;
+    const maxX = Math.max(window.innerWidth - btnW - margin, margin);
+    const maxY = Math.max(window.innerHeight - btnH - margin, margin);
+    const newX = margin + Math.random() * (maxX - margin);
+    const newY = margin + Math.random() * (maxY - margin);
+
+    rejectBtn.classList.add('roaming');
+    rejectBtn.style.left = newX + 'px';
+    rejectBtn.style.top = newY + 'px';
+
+    statusLine.textContent = notes[Math.min(dodgeCount-1, notes.length-1)];
+  }
+
+  rejectBtn.addEventListener('mouseenter', dodge);
+  rejectBtn.addEventListener('click', dodge);
+  rejectBtn.addEventListener('touchstart', function(e){
+    e.preventDefault();
+    dodge();
+  }, {passive:false});
+
+  // ---------- festive sound (synthesized, not copyrighted audio) ----------
+  function playFanfare(){
+    try{
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const notes = [523.25, 659.25, 783.99, 1046.5];
+      let t = ctx.currentTime;
+      notes.forEach((freq) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.exponentialRampToValueAtTime(0.22, t + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.32);
+        osc.connect(gain).connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.35);
+        t += 0.18;
+      });
+    }catch(e){}
+  }
+
+  document.getElementById('accept').addEventListener('click', function(){
+    playFanfare();
+    document.getElementById('invite-screen').classList.add('hidden');
+    document.getElementById('confirm-screen').classList.remove('hidden');
+    window.scrollTo(0,0);
+  });
+})();
+</script>
+
+</body>
+</html>
